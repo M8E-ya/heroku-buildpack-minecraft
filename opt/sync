@@ -16,27 +16,3 @@ EOF
   fi
   rm .s3cfg
 fi
-
-FILE=$1
-
-BASENAME=$(basename $FILE)
-
-if [ -f "$FILE" ]; then
-    # upload file to dropbox
-    CMD="upload $DIR/$BASENAME"
-    HTTP_CODE=$(curl -X POST -sL -w "%{http_code}" --output /dev/null https://content.dropboxapi.com/2/files/upload \
-        --header "Authorization: Bearer $TOKEN" \
-        --header "Dropbox-API-Arg: {\"path\": \"$DIR/$BASENAME\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false}" \
-        --header "Content-Type: application/octet-stream" \
-        --data-binary @$FILE)
-else
-    # delete file from dropbox
-    CMD="delete $DIR/$BASENAME"
-    HTTP_CODE=$(curl -X POST -sL -w "%{http_code}" --output /dev/null https://api.dropboxapi.com/2/files/delete_v2 \
-        --header "Authorization: Bearer $TOKEN" \
-        --header "Content-Type: application/json" \
-        --data "{\"path\": \"$DIR/$BASENAME\"}")
-fi
-
-echo $CMD
-echo "Response code => $HTTP_CODE"
