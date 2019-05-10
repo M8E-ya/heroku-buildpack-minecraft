@@ -16,3 +16,23 @@ EOF
   fi
   rm .s3cfg
 fi
+
+#dropbox
+if [ -n "$DROPBOX" ]; then
+[default]
+access_token = ${DBCONFIG}
+App_key = ${DBKEY}
+App_secret = ${DBSEC}
+
+curl -X POST https://content.dropboxapi.com/2/files/upload \
+    --header "Authorization: Bearer "${DBCONFIG}"" \
+    --header "Dropbox-API-Arg: {\"path\": \"/World\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false}" \
+    --header "Content-Type: application/octet-stream" \
+    --data-binary @local_file.txt
+{
+    "path": "/world,
+    "mode": "add",
+    "autorename": true,
+    "mute": false,
+    "strict_conflict": false
+}
