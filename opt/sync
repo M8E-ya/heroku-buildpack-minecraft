@@ -17,9 +17,6 @@ EOF
   rm .s3cfg
 fi
 
-readonly TOKEN=YOUR_APP_TOKEN
-readonly DIR=/YOUR_DIR_PATH
-
 FILE=$1
 
 BASENAME=$(basename $FILE)
