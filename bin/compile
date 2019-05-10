@@ -65,15 +65,15 @@ echo "done"
 minecraft_version=${MINECRAFT_VERSION:-"1.14"}
 
 if echo "$minecraft_version" | grep -q '^1\.14.*$'; then
-  #minecraft_uuid="${MINECRAFT_UUID:="d0caafb8438ebd206f99930cfaecfa6c9a13dca0"}"
+  minecraft_uuid="${MINECRAFT_UUID:="f1a0073671057f01aa843443fef34330281333ce"}"
   minecraft_url="https://launcher.mojang.com/v1/objects/f1a0073671057f01aa843443fef34330281333ce/server.jar"
 else
   minecraft_url="https://s3.amazonaws.com/Minecraft.Download/versions/${minecraft_version}/server.${minecraft_version}.jar"
 fi
 
 echo -n "-----> Installing Minecraft ${minecraft_version}... "
-curl -o minecraft.jar -s -L $minecraft_url
-mv minecraft.jar $BUILD_DIR/minecraft.jar
+curl -o server.jar -s -L $minecraft_url
+mv server.jar $BUILD_DIR/server.jar
 echo "done"
 
 if [ -n "${MINECRAFT_EULA:-""}" ]; then
